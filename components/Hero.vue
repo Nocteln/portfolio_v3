@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center pt-20">
+  <div class="flex items-center pt-20" id="acceuil">
     <img
       src="/avatar_coucou.png"
       alt="avatar"
@@ -24,7 +24,7 @@
           et des jeux 🎮!
         </p>
       </div>
-      <button class="mt-6">
+      <button class="mt-6 px-6">
         <a
           href="#projets"
           class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"

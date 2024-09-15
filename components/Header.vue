@@ -10,11 +10,13 @@
       <p class="text-sm">Etudiant à Epita!</p>
     </div>
     <div class="flex justify-evenly w-[40vw] space-x-12">
-      <a href="#" class="hover:text-blue-600 transition duration-300">Home</a>
+      <a href="#" class="hover:text-blue-600 transition duration-300"
+        >Acceuil</a
+      >
       <a
         href="#about"
         class="hover:text-blue-600 transition duration-300 border-b-2 border-blue-600"
-        >About</a
+        >A propos</a
       >
       <a href="#projets" class="hover:text-blue-600 transition duration-300"
         >Projets</a
