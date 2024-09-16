@@ -3,6 +3,7 @@
     <Header />
     <Hero />
     <About />
-    <Skills />
+    <Projets />
+    <Contact />
   </div>
 </template>

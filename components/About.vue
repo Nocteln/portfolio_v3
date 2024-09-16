@@ -1,6 +1,8 @@
 <template>
-  <div class="pt-20 items-center flex flex-col">
-    <h1 class="pb-10 text-3xl font-bold font-poppins">A propos de moi</h1>
+  <div class="pt-20 items-center flex flex-col" id="about">
+    <h1 class="pb-10 text-4xl font-bold font-poppins text-gray-800">
+      A propos de moi
+    </h1>
     <span class="h-0.5 w-[20vw] bg-gray-700/10 mb-10" />
     <div class="flex flex-wrap gap-10">
       <AboutCard
@@ -20,5 +22,7 @@
         icon="i-gravity-ui-route"
       />
     </div>
+
+    <Skills />
   </div>
 </template>
