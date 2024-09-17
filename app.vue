@@ -4,6 +4,7 @@
     <Hero />
     <About />
     <Projets />
-    <Contact />
+    <!-- <Contact /> -->
+    <Footer />
   </div>
 </template>

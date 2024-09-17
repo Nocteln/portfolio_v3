@@ -1,9 +1,12 @@
 <template>
-  <div class="py-10 text-center">
-    <h1 class="py-5 text-3xl font-bold font-poppins text-gray-800">
-      Mes compétences
-    </h1>
-    <span class="h-0.5 w-[20vw] bg-gray-700/10 mb-10" />
+  <section id="skills" class="py-10 text-center w-[80vw]">
+    <div class="flex items-center flex-col">
+      <h1 class="pb-10 text-4xl font-bold font-poppins text-gray-800">
+        Mes compétences
+      </h1>
+      <span class="h-0.5 w-[20vw] bg-gray-700/10 mb-10" />
+    </div>
+
     <div class="pt-10 flex gap-10 flex-wrap items-center justify-center">
       <div v-for="skill in skills" :key="skill.id">
         <div
@@ -15,12 +18,12 @@
           >
           <Icon
             :name="skill.icon"
-            class="grayscale group-hover:grayscale-0 text-2xl transition duration-300"
+            class="grayscale-0 group-hover:grayscale text-2xl transition duration-300"
           />
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

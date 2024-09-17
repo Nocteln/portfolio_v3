@@ -3,7 +3,7 @@ import projets from "~/public/data/projets";
 </script>
 
 <template>
-  <div class="py-20 items-center flex flex-col" id="projets">
+  <section class="py-20 items-center flex flex-col" id="projets">
     <h1 class="pb-10 text-4xl font-bold font-poppins text-gray-800">
       Mes projets
     </h1>
@@ -40,5 +40,5 @@ import projets from "~/public/data/projets";
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>

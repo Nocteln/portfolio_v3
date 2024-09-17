@@ -1,5 +1,8 @@
 <template>
-  <div class="flex items-center pt-20" id="acceuil">
+  <section
+    class="flex flex-col md:flex-row items-center justify-center text-center pt-32"
+    id="accueil"
+  >
     <img
       src="/avatar_coucou.png"
       alt="avatar"
@@ -9,8 +12,8 @@
       <h1 class="text-4xl font-bold font-poppins italic text-shadow-md">
         👋
         <span
-          class="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent"
-          >Hello World! I'm Eliott</span
+          class="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent pr-10"
+          >Hello World! I'm {{ currentWord }}</span
         >
       </h1>
 
@@ -32,10 +35,51 @@
         >
       </button>
     </div>
-  </div>
+  </section>
 </template>
-
 <script setup>
-//TODO: utiliser snap-y pour le scroll
-//TODO: pour le titre 'helo world, ....' faire que le mot 'Eliott' soit interchangable (en mode: I'm a developer, I'm a student, I'm a gamer, etc)
+const words = ["a developer", "a student", "a gamer", "Eliott", "a dreamer"];
+
+const currentWord = ref(""); // Mot affiché à l'écran
+let wordIndex = 0; // Index du mot actuel
+let charIndex = 0; // Index du caractère à afficher/supprimer
+let isDeleting = false; // Indicateur si on est en mode suppression
+let typingSpeed = 150; // Vitesse de frappe
+let deletingSpeed = 50; // Vitesse de suppression
+let pauseBeforeDeleting = 4000; // Pause avant de commencer la suppression
+
+const typeEffect = () => {
+  const current = words[wordIndex];
+
+  // Cas où on supprime des caractères
+  if (isDeleting) {
+    currentWord.value = current.substring(0, charIndex);
+    charIndex--;
+
+    // Quand on a supprimé tout le mot
+    if (charIndex < 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length; // Passe au mot suivant
+      charIndex = 0; // Réinitialise l'indice de caractère
+    }
+  } else {
+    // Cas où on ajoute des caractères
+    currentWord.value = current.substring(0, charIndex);
+    charIndex++;
+
+    // Quand le mot est entièrement affiché
+    if (charIndex === current.length) {
+      setTimeout(() => {
+        isDeleting = true;
+      }, pauseBeforeDeleting); // Pause avant suppression
+    }
+  }
+
+  // Ajuster la vitesse selon qu'on supprime ou qu'on écrit
+  setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+};
+
+onMounted(() => {
+  typeEffect();
+});
 </script>

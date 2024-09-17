@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center shadow-xl border-2 rounded-md p-6 w-[25vw] transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+    class="flex flex-col items-center shadow-xl border-2 rounded-md p-6 w-[80vw] md:w-[20vw] transform transition duration-300 hover:scale-105 hover:shadow-2xl"
   >
     <div
       class="mx-auto flex h-16 w-16 -translate-y-12 transform items-center justify-center rounded-full shadow-lg bg-blue-500 shadow-blue-500/40"

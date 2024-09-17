@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-20 items-center flex flex-col" id="about">
+  <section class="pt-20 items-center w-[80vw] flex flex-col" id="about">
     <h1 class="pb-10 text-4xl font-bold font-poppins text-gray-800">
       A propos de moi
     </h1>
@@ -24,5 +24,5 @@
     </div>
 
     <Skills />
-  </div>
+  </section>
 </template>
