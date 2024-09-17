@@ -21,21 +21,21 @@
               <Icon name="i-ic-round-email" class="text-2xl" />
             </a>
             <a
-              href="https://github.com/eliott"
+              href="https://github.com/nocteln"
               class="text-gray-400 hover:text-black transition"
               target="_blank"
             >
               <Icon name="i-uiw-github" class="text-2xl" />
             </a>
             <a
-              href="https://linkedin.com/in/eliott"
+              href="https://www.linkedin.com/in/eliott-mieze-b15114232/"
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
             >
               <Icon name="i-uiw-linkedin" class="text-2xl" />
             </a>
             <a
-              href="https://discord.com/users/eliott"
+              href="https://discordapp.com/users/562693590514532362"
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
             >
