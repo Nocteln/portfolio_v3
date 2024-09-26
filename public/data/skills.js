@@ -36,7 +36,7 @@ const skills = [
   },
   {
     name: "NodeJs",
-    icon: "i-logos-nodejs-icon",
+    icon: "i-logos-nodejs-icon-alt",
     id: 8,
   },
   {

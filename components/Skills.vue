@@ -1,5 +1,5 @@
 <template>
-  <section id="skills" class="py-10 text-center w-[80vw]">
+  <section id="skills" class="py-24 text-center w-[80vw]">
     <div class="flex items-center flex-col">
       <h1 class="pb-10 text-4xl font-bold font-poppins text-gray-800">
         Mes compétences

@@ -24,6 +24,7 @@ import projets from "~/public/data/projets";
             <h3 class="font-bold text-xl text-gray-800">{{ projet.title }}</h3>
             <p class="text-gray-600 text-sm mt-2">{{ projet.description }}</p>
             <a
+              v-if="projet.link"
               :href="projet.link"
               target="_blank"
               class="block text-center bg-blue-500 text-white rounded px-4 py-2 mt-4 hover:bg-blue-800 transition duration-300 ease-in-out"

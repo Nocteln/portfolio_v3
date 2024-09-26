@@ -9,7 +9,7 @@
       class="rounded-xl w-48 md:w-60"
     />
     <div class="md:ml-8 mt-4 md:mt-0">
-      <h1 class="text-4xl font-bold font-poppins italic text-shadow-md">
+      <h1 class="text-4xl font-bold font-poppins italic">
         👋
         <span
           class="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent pr-10"
@@ -17,9 +17,7 @@
         >
       </h1>
 
-      <div
-        class="font-roboto text-gray-700 leading-relaxed mt-4 text-shadow text-lg px-6"
-      >
+      <div class="font-roboto text-gray-700 leading-relaxed mt-4 text-lg px-6">
         <p>🎓 Un étudiant en 1ère année à Epita Paris!</p>
 
         <p>

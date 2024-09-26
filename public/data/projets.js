@@ -21,7 +21,6 @@ const projets = [
     title: "Ancien portfolio",
     description: "Mon ancien portfolio, développé avec ReactJS",
     image: "/ancienSite.png",
-    link: "https://www.google.com",
     link2: "https://github.com/Nocteln/site-perso",
   },
 ];
