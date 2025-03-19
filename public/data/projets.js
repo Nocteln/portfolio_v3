@@ -23,6 +23,14 @@ const projets = [
     image: "/ancienSite.png",
     link2: "https://github.com/Nocteln/site-perso",
   },
+  {
+    id: 4,
+    title: "Blackout",
+    description: "Projet d'école, jeu vidéo fait avec unity",
+    image: "/winterArchitect.png",
+    link: "https://winter-architect.netlify.app",
+    link2: "https://github.com/orgs/Winter-Architect/repositories",
+  },
 ];
 
 export default projets;
