@@ -5,7 +5,7 @@ const projets = [
     description:
       "Application de suivi quotidien pour organiser et améliorer vos habitudes.",
     image: "mydt.png",
-    link: "https://mydailytracking.com",
+    link: "https://mydailytracking.netlify.app/",
     link2: "https://github.com/Nocteln/habit-tracker",
   },
   {
@@ -13,7 +13,7 @@ const projets = [
     title: "Site nike",
     description: "site vitrine fictif de vente de chaussures",
     image: "nike.jpg",
-    link: "https://nike.nocteln.fr",
+    link: "https://nike-practice-01.netlify.app",
     link2: "https://github.com/Nocteln/nike_app",
   },
   {
