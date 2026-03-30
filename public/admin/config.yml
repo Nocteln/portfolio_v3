@@ -10,6 +10,9 @@ backend:
 media_folder: "public/img/writeups"
 public_folder: "/img/writeups"
 
+# Activation du mode "Brouillon"
+publish_mode: editorial_workflow
+
 # Définition de la collection d'articles
 collections:
   - name: "writeups"

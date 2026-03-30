@@ -160,7 +160,18 @@ const server = http.createServer((req, res) => {
       }
 
       if (event === 'push') {
-        console.log(`[${new Date().toISOString()}] Push detecte !! Lancement du deploiement Bash...`);
+        try {
+          const payload = JSON.parse(body);
+          // Si le push vient d'une branche de brouillon Decap CMS, on ignore la compilation
+          if (payload.ref && payload.ref !== 'refs/heads/master') {
+             res.writeHead(200);
+             return res.end('Ignore: Push sur une branche secondaire (brouillon).');
+          }
+        } catch (e) {
+          // Si on ne peut pas lire le JSON, on continue quand même au cas où
+        }
+
+        console.log(`[${new Date().toISOString()}] Push sur Master detecte !! Lancement du deploiement Bash...`);
         res.writeHead(200);
         res.end('Deploiement lance en fond');
 
