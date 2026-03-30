@@ -44,8 +44,8 @@ function isActive(section) {
   <header
     class="w-full fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-xl"
   >
-    <div class="px-10 py-4 flex justify-between items-center md:fixed">
-      <div class="leading-3 md:hidden">
+    <div class="px-10 py-4 flex justify-between items-center lg:fixed">
+      <div class="leading-3 lg:hidden">
         <h1 class="text-3xl font-extrabold tracking-wide text-gray-800">
           Eliott Mieze
         </h1>
@@ -53,7 +53,7 @@ function isActive(section) {
       </div>
       <div
         @click="toggleMenu"
-        class="md:hidden cursor-pointer bg-blue-600 text-white w-8 h-8 rounded flex justify-center items-center"
+        class="lg:hidden cursor-pointer bg-blue-600 text-white w-8 h-8 rounded flex justify-center items-center"
       >
         <Icon
           :name="
@@ -67,55 +67,55 @@ function isActive(section) {
     </div>
 
     <nav
-      class="px-10 py-2 flex transition-all duration-300 ease-in-out items-center justify-between flex-col md:flex-row"
+      class="px-10 py-2 flex transition-all duration-300 ease-in-out items-center justify-between flex-col lg:flex-row"
       :class="[
         isOpen
           ? 'max-h-screen opacity-100 visible'
           : 'max-h-0 opacity-0 invisible',
-        'md:max-h-none md:opacity-100 md:visible',
+        'lg:max-h-none lg:opacity-100 lg:visible',
       ]"
     >
-      <div class="leading-3 hidden md:block">
+      <div class="leading-3 hidden lg:block">
         <h1 class="text-3xl font-extrabold tracking-wide text-gray-800">
           Eliott Mieze
         </h1>
         <p class="text-sm">Etudiant à Epita!</p>
       </div>
       <div
-        class="text-center flex md:justify-evenly md:w-[40vw] md:space-x-12 text-lg md:text-md items-center justify-center py-4 gap-4 flex-col md:flex-row"
+        class="text-center flex lg:justify-center lg:space-x-8 text-lg lg:text-base items-center justify-center py-4 gap-4 flex-col lg:flex-row"
       >
         <a
           href="/#accueil"
-          class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('accueil') && $route.path === '/' }"
+          class="hover:text-blue-600 transition duration-300 relative py-1"
+          :class="{ 'text-blue-600 font-semibold border-b-2 border-blue-600': isActive('accueil') && $route.path === '/' }"
           >Accueil</a
         >
         <a
           href="/#about"
-          class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('about') && $route.path === '/' }"
+          class="hover:text-blue-600 transition duration-300 relative py-1"
+          :class="{ 'text-blue-600 font-semibold border-b-2 border-blue-600': isActive('about') && $route.path === '/' }"
           >A propos</a
         >
         <a
           href="/#skills"
-          class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('skills') && $route.path === '/' }"
+          class="hover:text-blue-600 transition duration-300 relative py-1"
+          :class="{ 'text-blue-600 font-semibold border-b-2 border-blue-600': isActive('skills') && $route.path === '/' }"
           >Mes compétences</a
         >
         <a
           href="/#projets"
-          class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('projets') && $route.path === '/' }"
+          class="hover:text-blue-600 transition duration-300 relative py-1"
+          :class="{ 'text-blue-600 font-semibold border-b-2 border-blue-600': isActive('projets') && $route.path === '/' }"
           >Projets</a
         >
         <NuxtLink
           to="/writeups"
-          class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('latest-writeups') || $route.path.startsWith('/writeups') }"
+          class="hover:text-blue-600 transition duration-300 relative py-1"
+          :class="{ 'text-blue-600 font-semibold border-b-2 border-blue-600': isActive('latest-writeups') || $route.path.startsWith('/writeups') }"
           >Write-ups</NuxtLink
         >
       </div>
-      <div class="flex space-x-4">
+      <div class="flex space-x-4 pb-4 lg:pb-0">
         <a
           href="https://github.com/Nocteln"
           class="text-gray-600 hover:text-black transition duration-300"
@@ -152,6 +152,4 @@ function isActive(section) {
       </div>
     </nav>
   </header>
-  <!-- Ajoutez un élément pour compenser la hauteur du header fixe -->
-  <!-- <div class="h-[calc(100px+4rem)] md:h-[calc(100px+2rem)]"></div> -->
 </template>
