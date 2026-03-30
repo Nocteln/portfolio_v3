@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: Nocteln/portfolio_v3
+  branch: master # Note: vérifiez si votre branche principale s'appelle bien "main", sinon changez en "master"
+  # L'authentification PKCE permet de se lier à GitHub de manière totalement sécurisée sans serveur intermédiaire
+  auth_type: pkce
+  app_id: Ov23liUo3GSYyxVWCHV9 # Le Client ID fourni par votre GitHub OAuth App
+
+# C'est ici que les images téléchargées dans l'éditeur vont être stockées (commitées).
+media_folder: "public/img/writeups"
+public_folder: "/img/writeups"
+
+# Définition de la collection d'articles
+collections:
+  - name: "writeups"
+    label: "Write-Ups CTF"
+    folder: "content/writeups"
+    create: true
+    # Le nom du fichier sera formaté automatiquement
+    slug: "{{year}}-{{month}}-{{title}}"
+    fields:
+      - {label: "Titre du challenge", name: "title", widget: "string"}
+      - {label: "Nom du CTF", name: "ctf", widget: "string"}
+      - {label: "Plateforme", name: "platform", widget: "select", options: ["HackTheBox", "TryHackMe", "RootMe", "Autre"], default: "HackTheBox"}
+      - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Image / Vignette", name: "image", widget: "image", required: false}
+      - {label: "Description (Optionnelle)", name: "description", widget: "string", required: false}
+      - {label: "Contenu / Article (Markdown)", name: "body", widget: "markdown"}
