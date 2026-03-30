@@ -2,9 +2,9 @@ backend:
   name: github
   repo: Nocteln/portfolio_v3
   branch: master # Note: vérifiez si votre branche principale s'appelle bien "main", sinon changez en "master"
-  # L'authentification PKCE permet de se lier à GitHub de manière totalement sécurisée sans serveur intermédiaire
-  auth_type: pkce
-  app_id: Ov23liUo3GSYyxVWCHV9 # Le Client ID fourni par votre GitHub OAuth App
+  # Proxy OAuth interne fait maison :
+  base_url: https://nocteln.fr
+  auth_endpoint: oauth/auth
 
 # C'est ici que les images téléchargées dans l'éditeur vont être stockées (commitées).
 media_folder: "public/img/writeups"

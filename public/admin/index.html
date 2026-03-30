@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administration Portfolio CTF</title>
+    <!-- On force le chemin absolu pour éviter le bug du trailing slash /admin vs /admin/ -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
   </head>
   <body>
     <!-- Inclusion du script officiel de Decap CMS -->
