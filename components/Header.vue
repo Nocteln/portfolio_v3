@@ -85,28 +85,34 @@ function isActive(section) {
         class="text-center flex md:justify-evenly md:w-[40vw] md:space-x-12 text-lg md:text-md items-center justify-center py-4 gap-4 flex-col md:flex-row"
       >
         <a
-          href="#accueil"
+          href="/#accueil"
           class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('accueil') }"
+          :class="{ 'border-b-2 border-blue-600': isActive('accueil') && $route.path === '/' }"
           >Accueil</a
         >
         <a
-          href="#about"
+          href="/#about"
           class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('about') }"
+          :class="{ 'border-b-2 border-blue-600': isActive('about') && $route.path === '/' }"
           >A propos</a
         >
         <a
-          href="#skills"
+          href="/#skills"
           class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('skills') }"
+          :class="{ 'border-b-2 border-blue-600': isActive('skills') && $route.path === '/' }"
           >Mes compétences</a
         >
         <a
-          href="#projets"
+          href="/#projets"
           class="hover:text-blue-600 transition duration-300"
-          :class="{ 'border-b-2 border-blue-600': isActive('projets') }"
+          :class="{ 'border-b-2 border-blue-600': isActive('projets') && $route.path === '/' }"
           >Projets</a
+        >
+        <NuxtLink
+          to="/writeups"
+          class="hover:text-blue-600 transition duration-300"
+          :class="{ 'border-b-2 border-blue-600': isActive('latest-writeups') || $route.path.startsWith('/writeups') }"
+          >Write-ups</NuxtLink
         >
       </div>
       <div class="flex space-x-4">
@@ -114,6 +120,7 @@ function isActive(section) {
           href="https://github.com/Nocteln"
           class="text-gray-600 hover:text-black transition duration-300"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <Icon name="uil:github" class="text-3xl" />
         </a>
@@ -121,6 +128,7 @@ function isActive(section) {
           href="https://www.linkedin.com/in/eliott-mieze-b15114232/"
           class="text-gray-600 hover:text-blue-600 transition duration-300"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <Icon name="uil:linkedin" class="text-3xl" />
         </a>
@@ -128,8 +136,18 @@ function isActive(section) {
           href="https://discordapp.com/users/562693590514532362"
           class="text-gray-600 hover:text-blue-700 transition duration-300"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <Icon name="i-ic-baseline-discord" class="text-3xl" />
+        </a>
+        <a
+          href="https://tryhackme.com/p/nocteln"
+          class="transition duration-300 flex items-center justify-center opacity-70 hover:opacity-100"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="TryHackMe"
+        >
+          <img src="/tryhackme.svg" alt="TryHackMe" class="w-[28px] h-[28px]" />
         </a>
       </div>
     </nav>

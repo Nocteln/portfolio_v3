@@ -4,6 +4,7 @@
     <Hero />
     <About />
     <Projets />
+    <LatestWriteups />
     <!-- <Contact /> -->
     <Footer />
   </div>

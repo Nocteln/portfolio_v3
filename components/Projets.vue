@@ -15,9 +15,11 @@ import projets from "~/public/data/projets";
           :key="projet.id"
           class="group bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
         >
-          <img
+          <NuxtImg
             :src="projet.image"
             alt="projet.title"
+            format="webp"
+            loading="lazy"
             class="w-full h-48 object-cover group-hover:opacity-75 transition-opacity duration-300"
           />
           <div class="p-6">

@@ -6,29 +6,45 @@
         Retour aux write-ups
       </NuxtLink>
       
-      <ContentDoc v-slot="{ doc }">
-        <article class="bg-white rounded-3xl shadow-xl overflow-hidden">
-          <div class="w-full h-64 md:h-80 bg-cover bg-center relative" :style="{ backgroundImage: `url(${doc.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'})` }">
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="absolute bottom-0 left-0 p-8">
-              <div class="flex items-center space-x-3 mb-3">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-600 text-white shadow-lg">
-                  {{ doc.platform }}
-                </span>
-                <span class="text-sm font-medium text-gray-200">
-                  {{ doc.date ? new Date(doc.date).toLocaleDateString('fr-FR') : '' }}
-                </span>
-              </div>
-              <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight shadow-sm poppins">{{ doc.title }}</h1>
-              <p class="text-lg text-gray-200 mt-2 font-medium">{{ doc.ctf }}</p>
+      <article v-if="doc" class="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div class="w-full h-64 md:h-80 bg-cover bg-center relative" :style="{ backgroundImage: `url(${doc.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'})` }">
+          <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div class="absolute bottom-0 left-0 p-8">
+            <div class="flex items-center space-x-3 mb-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-600 text-white shadow-lg">
+                {{ doc.platform }}
+              </span>
+              <span class="text-sm font-medium text-gray-200">
+                {{ doc.date ? new Date(doc.date).toLocaleDateString('fr-FR') : '' }}
+              </span>
             </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight shadow-sm poppins">{{ doc.title }}</h1>
+            <p class="text-lg text-gray-200 mt-2 font-medium">{{ doc.ctf }}</p>
           </div>
-          
-          <div class="p-8 md:p-12">
-            <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500" />
-          </div>
-        </article>
-      </ContentDoc>
+        </div>
+        
+        <div class="p-8 md:p-12">
+          <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500" />
+        </div>
+      </article>
     </div>
   </div>
 </template>
+
+<script setup>
+const route = useRoute()
+const { data: doc } = await useAsyncData(`article-${route.path}`, () => {
+  return queryContent(route.path).findOne()
+})
+
+if (doc.value) {
+  useSeoMeta({
+    title: `${doc.value.title} - Write-up CTF`,
+    ogTitle: `${doc.value.title} - Write-up CTF`,
+    description: doc.value.description || `Retrouvez mon Write-up détaillé sur le challenge ${doc.value.title} du CTF ${doc.value.ctf}.`,
+    ogDescription: doc.value.description || `Retrouvez mon Write-up détaillé sur le challenge ${doc.value.title} du CTF ${doc.value.ctf}.`,
+    ogImage: doc.value.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000',
+    twitterCard: 'summary_large_image',
+  })
+}
+</script>

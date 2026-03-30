@@ -3,9 +3,11 @@
     class="flex flex-col md:flex-row items-center justify-center text-center pt-32"
     id="accueil"
   >
-    <img
+    <NuxtImg
       src="/avatar_coucou.png"
       alt="avatar"
+      format="webp"
+      loading="lazy"
       class="rounded-xl w-48 md:w-60"
     />
     <div class="md:ml-8 mt-4 md:mt-0">
@@ -18,20 +20,24 @@
       </h1>
 
       <div class="font-roboto text-gray-700 leading-relaxed mt-4 text-lg px-6">
-        <p>🎓 Un étudiant en 1ère année à Epita Paris!</p>
-
-        <p>
-          💻 Mais surtout un développeur passionné 🔥 qui crée des sites web 🌐
-          et des jeux 🎮!
-        </p>
+        <p>🎓 Étudiant en 2ème année à Epita Paris!</p>
       </div>
-      <button class="mt-6 px-6">
-        <a
-          href="#projets"
-          class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
-          >Découvrez mes projets 🚀</a
-        >
-      </button>
+      <div class="flex justify-center space-x-4 mt-6">
+        <button class="mt-6 px-6">
+          <a
+            href="#projets"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
+            >Découvrez mes projets 🚀</a
+          >
+        </button>
+        <button class="mt-6 px-6">
+          <a
+            href="/writeups"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
+            >Découvrez mes write-ups 📝</a
+          >
+        </button>
+      </div>
     </div>
   </section>
 </template>

@@ -3,7 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   ssr: false,
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/icon", "@nuxt/content"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/icon", "@nuxt/content", "@nuxt/image", "@nuxtjs/sitemap"],
+  site: {
+    url: 'https://nocteln.fr',
+    name: 'Eliott Mieze - Portfolio'
+  },
   port: 3001,
 
   head: {

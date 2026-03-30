@@ -15,7 +15,7 @@
         <div class="flex flex-col items-start">
           <div class="flex space-x-6">
             <a
-              href="mailto:eliottmieze@gmail.com"
+              :href="mailtoLink"
               class="text-gray-400 hover:text-black transition"
             >
               <Icon name="i-ic-round-email" class="text-2xl" />
@@ -24,6 +24,7 @@
               href="https://github.com/nocteln"
               class="text-gray-400 hover:text-black transition"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Icon name="i-uiw-github" class="text-2xl" />
             </a>
@@ -31,6 +32,7 @@
               href="https://www.linkedin.com/in/eliott-mieze-b15114232/"
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Icon name="i-uiw-linkedin" class="text-2xl" />
             </a>
@@ -38,8 +40,18 @@
               href="https://discordapp.com/users/562693590514532362"
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Icon name="i-akar-icons-discord-fill" class="text-2xl" />
+            </a>
+            <a
+              href="https://tryhackme.com/p/nocteln"
+              class="transition duration-300 flex items-center justify-center opacity-40 hover:opacity-100"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="TryHackMe"
+            >
+              <img src="/tryhackme.svg" alt="TryHackMe" class="w-6 h-6" />
             </a>
           </div>
         </div>
@@ -66,48 +78,26 @@
 </template>
 <script setup>
 const emojis = ref([]);
+
+// Obfuscation de l'email
+const m1 = "eliottmieze";
+const m2 = "gmail.com";
+const mailtoLink = computed(() => `mai` + `lto:${m1}@${m2}`);
+
 const emojiList = [
-  "😀",
-  "😍",
-  "🥳",
-  "🌟",
-  "🎉",
-  "🦄",
-  "🌈",
-  "🍕",
-  "🚀",
-  "💖",
-  "✨",
-  "👌",
-  "😎",
-  "🤩",
-  "😑",
-  "🫡",
-  "😶‍🌫️",
-  "🤖",
-  "🎈",
-  "🎀",
-  "👓",
-  "🧦",
-  "👟",
-  "💎",
-  "🎣",
-  "⛳",
-  "🥌",
-  "⛸️",
-  "🎲",
-  "🎰",
-  "🪬",
-  "♟️",
-  "🔔",
-  "🎷",
-  "🔑",
-  "⚗️",
-  "📱",
-  "💻",
+  "😀", "😍", "🥳", "🌟", "🎉", "🦄", "🌈", "🍕", 
+  "🚀", "💖", "✨", "👌", "😎", "🤩", "😑", "🫡", 
+  "😶‍🌫️", "🤖", "🎈", "🎀", "👓", "🧦", "👟", "💎", 
+  "🎣", "⛳", "🥌", "⛸️", "🎲", "🎰", "🪬", "♟️", 
+  "🔔", "🎷", "🔑", "⚗️", "📱", "💻",
 ];
 
+let fiestaRunning = false;
+
 function fiesta() {
+  if (fiestaRunning) return;
+  fiestaRunning = true;
+  
   for (let i = 0; i < 20; i++) {
     setTimeout(() => {
       const emoji = document.createElement("div");
@@ -119,6 +109,7 @@ function fiesta() {
       emoji.style.fontSize = `${Math.random() * 20 + 20}px`;
       emoji.style.pointerEvents = "none";
       emoji.style.zIndex = "9999";
+      emoji.classList.add("emoji-animation");
       document.body.appendChild(emoji);
 
       anime({
@@ -128,11 +119,18 @@ function fiesta() {
         duration: 5000,
         easing: "easeInQuad",
         complete: () => {
-          document.body.removeChild(emoji);
+          if (document.body.contains(emoji)) {
+            document.body.removeChild(emoji);
+          }
         },
       });
     }, i * 100);
   }
+  
+  // Limite les clics à 1 fois toutes les 2.5 secondes
+  setTimeout(() => {
+    fiestaRunning = false;
+  }, 2500);
 }
 
 // Cleanup function to remove any remaining emojis when component is unmounted
