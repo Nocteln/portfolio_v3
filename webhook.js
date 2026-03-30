@@ -1,7 +1,7 @@
-const http = require('http');
-const https = require('https');
-const crypto = require('crypto');
-const { exec } = require('child_process');
+import http from 'http';
+import https from 'https';
+import crypto from 'crypto';
+import { exec } from 'child_process';
 
 // Tentative de chargement du fichier cache environnement (Natif Node.js v20.6+)
 try { process.loadEnvFile('.env'); } catch (e) { /* En production PM2 peut deja l'avoir injecté */ }

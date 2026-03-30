@@ -1,6 +1,6 @@
 #!/bin/bash
 # Aller dans le répertoire du projet pour être sûr d'avoir les droits et variables
-cd /root/portfolio_v3 || exit 1
+cd /var/www/portfolio_v3 || exit 1
 
 # Récupérer les articles depuis GitHub
 echo "Telechargement des modifications via git pull..."
