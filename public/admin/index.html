@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administration Portfolio CTF</title>
-    <!-- On force le chemin absolu pour éviter le bug du trailing slash /admin vs /admin/ -->
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
-  </head>
-  <body>
-    <!-- Inclusion du script Sveltia CMS (La version évoluée et moderne de Decap CMS) -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-    <!-- Injection de l'identité custom Netlify / GitHub -->
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration Portfolio CTF</title>
+  <!-- On force le chemin absolu pour éviter le bug du trailing slash /admin vs /admin/ -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+</head>
+
+<body>
+  <!-- Inclusion du script Sveltia CMS (La version évoluée et moderne de Decap CMS) -->
+  <!--<script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>-->
+  <!-- Injection de l'identité custom Netlify / GitHub -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
+
 </html>

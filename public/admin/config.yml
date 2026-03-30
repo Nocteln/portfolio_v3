@@ -22,6 +22,7 @@ collections:
     # Le nom du fichier sera formaté automatiquement
     slug: "{{year}}-{{month}}-{{title}}"
     fields:
+      - {label: "Brouillon (Caché au public)", name: "draft", widget: "boolean", default: false}
       - {label: "Titre du challenge", name: "title", widget: "string"}
       - {label: "Nom du CTF (Optionnel)", name: "ctf", widget: "string", required: false}
       - {label: "Plateforme", name: "platform", widget: "select", options: ["HackTheBox", "TryHackMe", "RootMe", "Autre"], default: "HackTheBox"}
