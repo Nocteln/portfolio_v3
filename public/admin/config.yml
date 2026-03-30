@@ -23,7 +23,7 @@ collections:
     slug: "{{year}}-{{month}}-{{title}}"
     fields:
       - {label: "Titre du challenge", name: "title", widget: "string"}
-      - {label: "Nom du CTF", name: "ctf", widget: "string"}
+      - {label: "Nom du CTF (Optionnel)", name: "ctf", widget: "string", required: false}
       - {label: "Plateforme", name: "platform", widget: "select", options: ["HackTheBox", "TryHackMe", "RootMe", "Autre"], default: "HackTheBox"}
       - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Image / Vignette", name: "image", widget: "image", required: false}
