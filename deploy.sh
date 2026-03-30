@@ -16,6 +16,12 @@ NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
 # Redémarrage propre sans interruption du trafic
 echo "Redemarrage de l'application via PM2..."
+
+export PORT=3001
+export NITRO_PORT=3001
 pm2 reload portfolio-v3 --update-env
+
+export PORT=9001
+pm2 reload portfolio-webhook --update-env
 
 echo "✅ Deploiement 100% termine."
