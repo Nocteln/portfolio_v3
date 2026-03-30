@@ -1,16 +1,16 @@
-const http = require('http');
-const https = require('https');
-const crypto = require('crypto');
-const { exec } = require('child_process');
+import http from 'http';
+import https from 'https';
+import crypto from 'crypto';
+import { exec } from 'child_process';
 
 // Tentative de chargement du fichier cache environnement (Natif Node.js v20.6+)
-try { process.loadEnvFile('.env'); } catch (e) { /* En production PM2 peut deja l'avoir injecté */ }
+try { process.loadEnvFile('/var/www/portfolio_v3/.env'); } catch (e) { console.error("ERREUR ENV", e) }
 
 // ============================================
 // CONFIGURATION GLOBALE DYNAMIQUE
 // ============================================
 const PORT = process.env.PORT || 9001;
-const SCRIPT_PATH = process.env.SCRIPT_PATH || './deploy.sh';
+const SCRIPT_PATH = process.env.SCRIPT_PATH || '/var/www/portfolio_v3/deploy.sh';
 const DEPLOY_SECRET = process.env.DEPLOY_SECRET || 'SecretDeSecours2026!';
 const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID || 'Client_Id_Inconnu';
 const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || 'Secret_Github_Inconnu';
