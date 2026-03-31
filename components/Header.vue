@@ -147,7 +147,7 @@ function isActive(section) {
           rel="noopener noreferrer"
           title="TryHackMe"
         >
-          <img src="/tryhackme.svg" alt="TryHackMe" class="w-[28px] h-[28px]" />
+          <img src="/tryhackme.svg" alt="TryHackMe" width="28" height="28" class="w-[28px] h-[28px]" />
         </a>
       </div>
     </nav>

@@ -117,7 +117,7 @@ const filteredWriteups = computed(() => {
 })
 
 useSeoMeta({
-  title: "CTF Write-ups - Portfolio",
-  description: "List of my Capture The Flag (CTF) write-ups.",
+  title: "CTF Write-ups - Nocteln",
+  description: "List of my Capture The Flag (CTF) write-ups by Nocteln (Eliott Mieze).",
 })
 </script>

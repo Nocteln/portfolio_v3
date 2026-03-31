@@ -20,6 +20,9 @@ import projets from "~/public/data/projets";
             alt="projet.title"
             format="webp"
             loading="lazy"
+            sizes="100vw sm:50vw md:400px"
+            width="400"
+            height="192"
             class="w-full h-48 object-cover group-hover:opacity-75 transition-opacity duration-300"
           />
           <div class="p-6">

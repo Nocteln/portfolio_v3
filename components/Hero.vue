@@ -8,7 +8,10 @@
       alt="avatar"
       format="webp"
       loading="lazy"
-      class="rounded-xl w-48 md:w-60"
+      sizes="192px md:240px"
+      width="240"
+      height="240"
+      class="rounded-xl w-48 md:w-60 shrink-0 object-cover"
     />
     <div class="md:ml-8 mt-4 md:mt-0">
       <h1 class="text-4xl font-bold font-poppins italic">
