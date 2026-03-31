@@ -24,7 +24,7 @@
         </div>
         
         <div class="p-8 md:p-12">
-          <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500" />
+          <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-code:before:content-none prose-code:after:content-none prose-code:bg-gray-100 prose-code:text-indigo-600 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium" />
         </div>
       </article>
     </div>
