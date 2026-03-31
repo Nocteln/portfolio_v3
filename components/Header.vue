@@ -121,6 +121,7 @@ function isActive(section) {
           class="text-gray-600 hover:text-black transition duration-300"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Mon compte GitHub"
         >
           <Icon name="uil:github" class="text-3xl" />
         </a>
@@ -129,6 +130,7 @@ function isActive(section) {
           class="text-gray-600 hover:text-blue-600 transition duration-300"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Mon profil LinkedIn"
         >
           <Icon name="uil:linkedin" class="text-3xl" />
         </a>
@@ -137,6 +139,7 @@ function isActive(section) {
           class="text-gray-600 hover:text-blue-700 transition duration-300"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Me contacter sur Discord"
         >
           <Icon name="i-ic-baseline-discord" class="text-3xl" />
         </a>
@@ -146,6 +149,7 @@ function isActive(section) {
           target="_blank"
           rel="noopener noreferrer"
           title="TryHackMe"
+          aria-label="Mon profil TryHackMe"
         >
           <img src="/tryhackme.svg" alt="TryHackMe" width="28" height="28" class="w-[28px] h-[28px]" />
         </a>

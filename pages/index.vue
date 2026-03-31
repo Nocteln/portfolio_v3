@@ -1,11 +1,13 @@
 <template>
   <div class="bg-white flex flex-col items-center justify-center">
     <Header />
-    <Hero />
-    <About />
-    <Projets />
-    <LatestWriteups />
-    <!-- <Contact /> -->
+    <main class="flex flex-col items-center w-full">
+      <Hero />
+      <About />
+      <Projets />
+      <LatestWriteups />
+      <!-- <Contact /> -->
+    </main>
     <Footer />
   </div>
 </template>

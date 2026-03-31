@@ -26,7 +26,7 @@ import projets from "~/public/data/projets";
             class="w-full h-48 object-cover group-hover:opacity-75 transition-opacity duration-300"
           />
           <div class="p-6">
-            <h3 class="font-bold text-xl text-gray-800">{{ projet.title }}</h3>
+            <h2 class="font-bold text-xl text-gray-800">{{ projet.title }}</h2>
             <p class="text-gray-600 text-sm mt-2">{{ projet.description }}</p>
             <a
               v-if="projet.link"

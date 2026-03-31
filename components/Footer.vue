@@ -5,7 +5,7 @@
     <div class="mx-auto flex flex-col items-center gap-10">
       <div class="flex flex-col items-center w-[80vw]">
         <h2 class="text-2xl font-bold mb-4">Une question? Contactez moi!</h2>
-        <p class="text-gray-600 mb-4">
+        <p class="text-gray-700 mb-4">
           Par mail ou via les réseaux sociaux, je serai ravi de répondre à vos
           questions!
         </p>
@@ -17,6 +17,7 @@
             <a
               :href="mailtoLink"
               class="text-gray-400 hover:text-black transition"
+              aria-label="Envoyer un email"
             >
               <Icon name="i-ic-round-email" class="text-2xl" />
             </a>
@@ -25,6 +26,7 @@
               class="text-gray-400 hover:text-black transition"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Mon compte GitHub"
             >
               <Icon name="i-uiw-github" class="text-2xl" />
             </a>
@@ -33,6 +35,7 @@
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Mon profil LinkedIn"
             >
               <Icon name="i-uiw-linkedin" class="text-2xl" />
             </a>
@@ -41,6 +44,7 @@
               class="text-gray-400 hover:text-blue-600 transition"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Rejoindre mon serveur Discord"
             >
               <Icon name="i-akar-icons-discord-fill" class="text-2xl" />
             </a>
@@ -50,6 +54,7 @@
               target="_blank"
               rel="noopener noreferrer"
               title="TryHackMe"
+              aria-label="Mon profil TryHackMe"
             >
               <img src="/tryhackme.svg" alt="TryHackMe" class="w-6 h-6" />
             </a>
@@ -57,7 +62,7 @@
         </div>
       </div>
       <div class="h-[1.5px] bg-slate-500/50 w-[30vw] rounded" />
-      <div class="mt-4 text-center text-gray-500 text-sm w-[80vw]">
+      <div class="mt-4 text-center text-gray-700 text-sm w-[80vw]">
         <p>
           &copy; 2024 Eliott Mieze. Tous droits réservés. - Développé avec
           <span @click="fiesta" class="cursor">❤️</span> en NuxtJs
