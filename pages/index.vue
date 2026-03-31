@@ -14,7 +14,7 @@
 useSeoMeta({
   title: "Eliott Mieze - Portfolio",
   ogTitle: "Eliott Mieze - Portfolio",
-  description: "Le portfolio d'eliot, étudiant à épita.",
-  ogDescription: "Le portfolio d'eliot, étudiant à épita.",
+  description: "The portfolio of Eliott, student at EPITA.",
+  ogDescription: "The portfolio of Eliott, student at EPITA.",
 });
 </script>

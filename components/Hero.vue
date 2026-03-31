@@ -22,18 +22,18 @@
       <div class="font-roboto text-gray-700 leading-relaxed mt-4 text-lg px-6">
         <p>🎓 Étudiant en 2ème année à Epita Paris!</p>
       </div>
-      <div class="flex justify-center space-x-4 mt-6">
-        <button class="mt-6 px-6">
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
+        <button class="mt-4 sm:mt-6 px-6 w-full sm:w-auto">
           <a
             href="#projets"
-            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
+            class="block bg-blue-500 text-white py-3 px-6 sm:py-2 sm:px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out w-full"
             >Découvrez mes projets 🚀</a
           >
         </button>
-        <button class="mt-6 px-6">
+        <button class="mt-2 sm:mt-6 px-6 w-full sm:w-auto">
           <a
             href="/writeups"
-            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
+            class="block bg-blue-500 text-white py-3 px-6 sm:py-2 sm:px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out w-full"
             >Découvrez mes write-ups 📝</a
           >
         </button>

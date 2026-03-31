@@ -39,10 +39,10 @@ const { data: doc } = await useAsyncData(`article-${route.path}`, () => {
 
 if (doc.value) {
   useSeoMeta({
-    title: `${doc.value.title} - Write-up CTF`,
-    ogTitle: `${doc.value.title} - Write-up CTF`,
-    description: doc.value.description || `Retrouvez mon Write-up détaillé sur le challenge ${doc.value.title} du CTF ${doc.value.ctf}.`,
-    ogDescription: doc.value.description || `Retrouvez mon Write-up détaillé sur le challenge ${doc.value.title} du CTF ${doc.value.ctf}.`,
+    title: `${doc.value.title} - CTF Write-up`,
+    ogTitle: `${doc.value.title} - CTF Write-up`,
+    description: doc.value.description || `Read my detailed write-up on the ${doc.value.title} challenge from the ${doc.value.ctf} CTF.`,
+    ogDescription: doc.value.description || `Read my detailed write-up on the ${doc.value.title} challenge from the ${doc.value.ctf} CTF.`,
     ogImage: doc.value.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000',
     twitterCard: 'summary_large_image',
   })
