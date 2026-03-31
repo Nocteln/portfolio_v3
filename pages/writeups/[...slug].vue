@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50 py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <NuxtLink to="/writeups" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-8 transition-colors">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
         Retour aux write-ups
@@ -24,7 +24,7 @@
         </div>
         
         <div class="p-8 md:p-12">
-          <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500 prose-code:before:content-none prose-code:after:content-none prose-code:bg-gray-100 prose-code:text-indigo-600 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium" />
+          <ContentRenderer :value="doc" class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500" />
         </div>
       </article>
     </div>
@@ -48,3 +48,17 @@ if (doc.value) {
   })
 }
 </script>
+
+<style scoped>
+:deep(.prose) :not(pre) > code {
+  background-color: #f3f4f6;
+  color: #4f46e5;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+:deep(.prose) code::before,
+:deep(.prose) code::after {
+  content: none !important;
+}
+</style>
