@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto w-full">
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight poppins">CTF Write-ups</h1>
-        <NuxtLink to="/#projets" class="text-indigo-600 hover:text-indigo-800 font-medium whitespace-nowrap">Retour au Portfolio</NuxtLink>
+        <NuxtLink to="/" class="text-indigo-600 hover:text-indigo-800 font-medium whitespace-nowrap">Retour au Portfolio</NuxtLink>
       </div>
       
       <!-- Barre de recherche et de filtres -->
