@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  ssr: false,
   modules: ["@nuxtjs/tailwindcss", "@nuxt/icon", "@nuxt/content", "@nuxt/image", "@nuxtjs/sitemap", "@nuxtjs/google-fonts"],
   site: {
     url: 'https://nocteln.fr',

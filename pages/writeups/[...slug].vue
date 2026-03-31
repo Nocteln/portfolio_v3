@@ -7,7 +7,18 @@
       </NuxtLink>
       
       <article v-if="doc" class="bg-white rounded-3xl shadow-xl overflow-hidden">
-        <div class="w-full h-64 md:h-80 bg-cover bg-center relative" :style="{ backgroundImage: `url(${doc.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'})` }">
+        <div class="w-full h-64 md:h-80 relative overflow-hidden bg-gray-900">
+          <NuxtImg
+            :src="doc.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'"
+            alt="Cover"
+            format="webp"
+            sizes="100vw lg:1200px"
+            width="1200"
+            height="320"
+            fetchpriority="high"
+            preload
+            class="absolute inset-0 w-full h-full object-cover"
+          />
           <div class="absolute inset-0 bg-black bg-opacity-50"></div>
           <div class="absolute bottom-0 left-0 p-8">
             <div class="flex items-center space-x-3 mb-3">

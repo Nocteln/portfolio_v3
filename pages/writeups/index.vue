@@ -40,7 +40,16 @@
           class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 h-[300px]"
         >
           <!-- Background Image -->
-          <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" :style="{ backgroundImage: `url(${article.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'})` }"></div>
+          <NuxtImg
+            :src="article.image || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'"
+            alt="Card background"
+            format="webp"
+            loading="lazy"
+            sizes="100vw md:33vw"
+            width="400"
+            height="300"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
           
           <!-- Gradient overlay -->
           <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
