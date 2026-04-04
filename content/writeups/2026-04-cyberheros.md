@@ -1,6 +1,6 @@
 ---
 draft: false
-title: CyberHeros
+title: CyberHeroes
 ctf: ''
 platform: TryHackMe
 date: 2026-04-04
@@ -21,7 +21,6 @@ Navigating to the page presents us with a standard authentication form:
 Instead of attempting to brute-force or guess credentials right away, it is always best practice to check under the hood. Inspecting the page's source code reveals a crucial `<script>` tag containing the authentication logic:
 
 ```javascript
-
 <script>
 
 function authenticate() {
@@ -65,7 +64,6 @@ function authenticate() {
 }
 
 </script>
-
 ```
 
 By analyzing this JavaScript snippet, we uncover a classic **client-side authentication vulnerability**. The validation logic is exposed directly in the browser rather than being handled securely on a backend server.
