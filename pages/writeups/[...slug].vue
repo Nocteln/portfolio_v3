@@ -25,12 +25,20 @@
               <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-600 text-white shadow-lg">
                 {{ doc.platform }}
               </span>
+              <span v-if="doc.difficulty" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-rose-500 text-white shadow-lg">
+                {{ doc.difficulty }}
+              </span>
               <span class="text-sm font-medium text-gray-200">
                 {{ doc.date ? new Date(doc.date).toLocaleDateString('fr-FR') : '' }}
               </span>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight shadow-sm poppins">{{ doc.title }}</h1>
-            <p class="text-lg text-gray-200 mt-2 font-medium">{{ doc.ctf }}</p>
+            <div class="flex items-center flex-wrap gap-x-2 mt-2">
+              <p class="text-lg text-gray-200 font-medium">{{ doc.ctf }}</p>
+              <a v-if="doc.ctf_link" :href="doc.ctf_link" target="_blank" rel="noopener noreferrer" class="text-indigo-300 hover:text-indigo-200 text-base font-medium transition-colors">
+                (Lien vers le CTF)
+              </a>
+            </div>
           </div>
         </div>
         

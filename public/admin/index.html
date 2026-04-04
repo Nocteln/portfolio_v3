@@ -7,6 +7,16 @@
   <title>Administration Portfolio CTF</title>
   <!-- On force le chemin absolu pour éviter le bug du trailing slash /admin vs /admin/ -->
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <style>
+    /* Réduction de l'interligne pour l'éditeur Markdown (Sveltia CMS) */
+    :root {
+      --sui-line-height-normal: 1.35 !important;
+    }
+    textarea, .cm-content, .cm-line, .ProseMirror, .ProseMirror p, [contenteditable="true"], .s-editor-content {
+      line-height: 1.35 !important;
+      margin-bottom: 0.25em !important;
+    }
+  </style>
 </head>
 
 <body>

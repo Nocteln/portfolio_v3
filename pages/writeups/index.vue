@@ -57,10 +57,15 @@
           <!-- Content -->
           <div class="relative p-6 h-full flex flex-col justify-end">
             <div class="flex justify-between items-center mb-2">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-500 text-white shadow">
-                {{ article.platform || 'CTF' }}
-              </span>
-              <span class="text-xs text-gray-300 font-medium">
+              <div class="flex flex-wrap gap-1.5 items-center">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-indigo-500 text-white shadow">
+                  {{ article.platform || 'CTF' }}
+                </span>
+                <span v-if="article.difficulty" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-rose-500 text-white shadow">
+                  {{ article.difficulty }}
+                </span>
+              </div>
+              <span class="text-xs text-gray-300 font-medium min-w-max ml-2 shrink-0">
                 {{ article.date ? new Date(article.date).toLocaleDateString('fr-FR') : 'Date inconnue' }}
               </span>
             </div>

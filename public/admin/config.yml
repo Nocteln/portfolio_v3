@@ -29,4 +29,6 @@ collections:
       - {label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Image / Vignette", name: "image", widget: "image", required: false}
       - {label: "Description (Optionnelle)", name: "description", widget: "string", required: false}
-      - {label: "Contenu / Article (Markdown)", name: "body", widget: "markdown"}
+      - {label: "Lien vers le CTF", name: "ctf_link", widget: "string", required: false}
+      - {label: "Difficulté", name: "difficulty", widget: "string", required: false}
+      - {label: "Contenu / Article (Markdown)", name: "body", widget: "markdown", modes: ["raw", "rich_text"]}
