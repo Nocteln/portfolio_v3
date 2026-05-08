@@ -202,7 +202,7 @@ Decrypting `haiinspsyanileph` with Vigenère / key `face` gives Sean's password,
 
 ## Conclusion
 
-A fun and thematic box centred around Nicolas Cage movies. Key takeaways:
+That was a fun CTF where I learned :
 
 - **Steganography:** Hidden text embedded in an audio spectrogram (Audacity)
 - **Cryptography:** Vigenère cipher used twice, with keys hidden in context clues
