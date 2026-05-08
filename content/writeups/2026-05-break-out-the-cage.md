@@ -4,7 +4,7 @@ title: Break Out The Cage
 ctf: ''
 platform: TryHackMe
 date: 2026-05-08
-image: ''
+image: https://assets.tryhackme.com/additional/banners/Rayti35.png
 description: ''
 ctf_link: https://tryhackme.com/room/breakoutthecage1
 difficulty: Easy
