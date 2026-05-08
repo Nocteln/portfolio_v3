@@ -30,6 +30,60 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 By doeing a gobuster scan, we can see some things interestings : 
 
+\`\`\`
+
+[nocteln@arch breakoutthecage]$ gobuster dir -u http://$IP -w ../SecLists-master/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt 
+
+===============================================================
+
+Gobuster v3.8.2
+
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+
+===============================================================
+
+[+] Url:                     http://10.82.169.149
+
+[+] Method:                  GET
+
+[+] Threads:                 10
+
+[+] Wordlist:                ../SecLists-master/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt
+
+[+] Negative Status codes:   404
+
+[+] User Agent:              gobuster/3.8.2
+
+[+] Timeout:                 10s
+
+===============================================================
+
+Starting gobuster in directory enumeration mode
+
+===============================================================
+
+images               (Status: 301) [Size: 315] [--> http://10.82.169.149/images/]
+
+html                 (Status: 301) [Size: 313] [--> http://10.82.169.149/html/]
+
+scripts              (Status: 301) [Size: 316] [--> http://10.82.169.149/scripts/]
+
+contracts            (Status: 301) [Size: 318] [--> http://10.82.169.149/contracts/]
+
+auditions            (Status: 301) [Size: 318] [--> http://10.82.169.149/auditions/]
+
+server-status        (Status: 403) [Size: 278]
+
+Progress: 220557 / 220557 (100.00%)
+
+===============================================================
+
+Finished
+
+===============================================================
+
+\`\`\`
+
 First, the scripts directory, which contains differents scripts of movies
 
 ![](/img/writeups/20260508-191819.png)
@@ -52,4 +106,79 @@ And by looking at the spectrogram, BINGO! We got an image saying "namelesstwo"
 
 ![](/img/writeups/20260508-192742.png)
 
-Now, what does it mean and where can I use this info??
+Now, what does it mean and where can I use this info?? Let's save that for later.
+
+After some minutes of existentials thoughts, I did another nmap scan but with the option -sC added, from which I learned that the ftp server accepted anonymous connections.
+
+![](/img/writeups/20260508-194925.png "nmap scan")
+
+And with that I was logged with anonymous. There was only one file in it : \`dad_tasks\`, which I downloaded on my machine.
+
+\`\`\`
+
+[nocteln@arch breakoutthecage]$ ftp $IP
+
+Connected to 10.82.169.149.
+
+220 (vsFTPd 3.0.3)
+
+Name (10.82.169.149:nocteln): anonymous
+
+331 Please specify the password.
+
+Password: 
+
+230 Login successful.
+
+Remote system type is UNIX.
+
+Using binary mode to transfer files.
+
+ftp> ls
+
+200 PORT command successful. Consider using PASV.
+
+150 Here comes the directory listing.
+
+-rw-r--r--    1 0        0             396 May 25  2020 dad_tasks
+
+226 Directory send OK.
+
+ftp> get dad_tasks
+
+200 PORT command successful. Consider using PASV.
+
+150 Opening BINARY mode data connection for dad_tasks (396 bytes).
+
+226 Transfer complete.
+
+396 bytes received in 0.0001 seconds (6.8672 Mbytes/s)
+
+ftp> 
+
+\`\`\`
+
+The dad_tasks file contain a string of random chars : \`UWFwdyBFZWtjbCAtIFB2ciBSTUtQLi4uWFpXIFZXVVIuLi4gVFRJIFhFRi4uLiBMQUEgWlJHUVJPISEhIQpTZncuIEtham5tYiB4c2kgb3d1b3dnZQpGYXouIFRtbCBma2ZyIHFnc2VpayBhZyBvcWVpYngKRWxqd3guIFhpbCBicWkgYWlrbGJ5d3FlClJzZnYuIFp3ZWwgdnZtIGltZWwgc3VtZWJ0IGxxd2RzZmsKWWVqci4gVHFlbmwgVnN3IHN2bnQgInVycXNqZXRwd2JuIGVpbnlqYW11IiB3Zi4KCkl6IGdsd3cgQSB5a2Z0ZWYuLi4uIFFqaHN2Ym91dW9leGNtdndrd3dhdGZsbHh1Z2hoYmJjbXlkaXp3bGtic2lkaXVzY3ds\`. At first I thought it might be the password and the answer to the first question but it wasnt.
+Okay so this looks like base64. Le'ts go to cyberchef. By decoding from base64, we get this : 
+
+```plain
+Qapw Eekcl - Pvr RMKP...XZW VWUR... TTI XEF... LAA ZRGQRO!!!!
+Sfw. Kajnmb xsi owuowge
+Faz. Tml fkfr qgseik ag oqeibx
+Eljwx. Xil bqi aiklbywqe
+Rsfv. Zwel vvm imel sumebt lqwdsfk
+Yejr. Tqenl Vsw svnt "urqsjetpwbn einyjamu" wf.
+
+Iz glww A ykftef.... Qjhsvbouuoexcmvwkwwatfllxughhbbcmydizwlkbsidiuscwl
+```
+
+This isn't readable so let's see if we can get something from this. I tried Cesar cypher,  xor with "endlesstwo" as a key, nothing worked. 
+After asking my good friend Gemini for a list of all possibles encryption methods, I got the good one : Vigenere with the key we found : endlesstwo. And with that, we got our first question solved!
+
+![](/img/writeups/20260508-200415.png "cyberchef result")
+
+## Connecting with ssh
+
+Now that we got Weston's password, we can connect with ssh to his account.
+
+![SSH connection](/img/writeups/20260508-200659.png "SSH connection")
