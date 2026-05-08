@@ -237,3 +237,93 @@ cage@national-treasure:\~$
 And with that, our user flag
 
 ![user flag](/img/writeups/20260508-205006.png)
+
+# root access
+
+Okay, now that we have access to cage's account, let's try to get the root. By looking at the files with have access, we can see we got 3 emails : 
+
+\`\`\`
+
+cage@national-treasure:/home/cage/email_backup# cat email_\*
+
+From - SeanArcher@BigManAgents.com
+
+To - Cage@nationaltreasure.com
+
+Hey Cage!
+
+There's rumours of a Face/Off sequel, Face/Off 2 - Face On. It's supposedly only in the
+
+planning stages at the moment. I've put a good word in for you, if you're lucky we 
+
+might be able to get you a part of an angry shop keeping or something? Would you be up
+
+for that, the money would be good and it'd look good on your acting CV.
+
+Regards
+
+Sean Archer
+
+From - Cage@nationaltreasure.com
+
+To - SeanArcher@BigManAgents.com
+
+Dear Sean
+
+We've had this discussion before Sean, I want bigger roles, I'm meant for greater things.
+
+Why aren't you finding roles like Batman, The Little Mermaid(I'd make a great Sebastian!),
+
+the new Home Alone film and why oh why Sean, tell me why Sean. Why did I not get a role in the
+
+new fan made Star Wars films?! There was 3 of them! 3 Sean! I mean yes they were terrible films.
+
+I could of made them great... great Sean.... I think you're missing my true potential.
+
+On a much lighter note thank you for helping me set up my home server, Weston helped too, but
+
+not overally greatly. I gave him some smaller jobs. Whats your username on here? Root?
+
+Yours
+
+Cage
+
+From - Cage@nationaltreasure.com
+
+To - Weston@nationaltreasure.com
+
+Hey Son
+
+Buddy, Sean left a note on his desk with some really strange writing on it. I quickly wrote
+
+down what it said. Could you look into it please? I think it could be something to do with his
+
+account on here. I want to know what he's hiding from me... I might need a new agent. Pretty
+
+sure he's out to get me. The note said:
+
+haiinspsyanileph
+
+The guy also seems obsessed with my face lately. He came him wearing a mask of my face...
+
+was rather odd. Imagine wearing his ugly face.... I wouldnt be able to FACE that!! 
+
+hahahahahahahahahahahahahahahaahah get it Weston! FACE THAT!!!! hahahahahahahhaha
+
+ahahahhahaha. Ahhh Face it... he's just odd. 
+
+Regards
+
+The Legend - Cage
+
+\`\`\`
+
+From those emails, we notice that the root user is sean and his password may be \`haiinspsyanileph\`. But it isnt. So the password is encrypted. We used vigenere before so I try this one too with the key "face" as it is repeated multiple times in the third email and BINGO, we got sean password and we can now login to his account and get the root flag.
+
+![](/img/writeups/20260508-210155.png)
+
+![](/img/writeups/20260508-210345.png)
+
+# Conclusion
+
+This challenge was very interesting. I learned to watch audio files for hidden messages, to decrypt vigenere encryption and to use programs made by users to get access to things I wasn't supposed to.
