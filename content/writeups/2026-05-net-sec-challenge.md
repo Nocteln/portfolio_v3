@@ -1,13 +1,13 @@
 ---
-draft: true
+draft: false
 title: Net Sec Challenge
-ctf: ""
+ctf: ''
 platform: TryHackMe
 date: 2026-05-09
 image: https://assets.tryhackme.com/room-banners/netsecmodule.png
-description: "Practice the skills you have learned in the Network Security module."
+description: Practice the skills you have learned in the Network Security module.
 ctf_link: https://tryhackme.com/room/netsecchallenge
-difficulty: "medium"
+difficulty: medium
 ---
 
 NetSecChallenge is the last room of the Network security category of the Junior Penterster path. It will test things that we learned during the last few rooms.
