@@ -5,7 +5,7 @@ const projets = [
     description:
       "Application de suivi quotidien pour organiser et améliorer vos habitudes.",
     image: "mydt.png",
-    link: "https://mydailytracking.netlify.app/",
+    link: "https://mdt.nocteln.fr",
     link2: "https://github.com/Nocteln/habit-tracker",
   },
   {
