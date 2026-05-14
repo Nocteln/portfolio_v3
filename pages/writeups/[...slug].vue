@@ -1,29 +1,34 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-12">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <NuxtLink
-        to="/writeups"
-        class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-8 transition-colors"
-      >
-        <svg
-          class="w-5 h-5 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      <div class="flex items-center justify-between mb-8">
+        <NuxtLink
+          to="/writeups"
+          class="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium transition-colors"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          ></path>
-        </svg>
-        Back to write-ups
-      </NuxtLink>
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            ></path>
+          </svg>
+          Back to write-ups
+        </NuxtLink>
+        <button @click="isDark = !isDark" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors duration-300 hover:bg-gray-300 dark:hover:bg-gray-700" aria-label="Toggle dark mode">
+          <Icon :name="isDark ? 'i-ph-sun-bold' : 'i-ph-moon-bold'" class="text-xl" />
+        </button>
+      </div>
 
       <article
         v-if="doc"
-        class="bg-white rounded-3xl shadow-xl overflow-hidden"
+        class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden transition-colors duration-300"
       >
         <div class="w-full h-64 md:h-80 relative overflow-hidden bg-gray-900">
           <NuxtImg
@@ -83,7 +88,7 @@
         <div class="p-8 md:p-12">
           <ContentRenderer
             :value="doc"
-            class="prose prose-indigo prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 hover:prose-a:text-indigo-500"
+            class="prose prose-indigo dark:prose-invert prose-lg max-w-none prose-headings:font-poppins prose-a:text-indigo-600 dark:prose-a:text-indigo-400 hover:prose-a:text-indigo-500 dark:hover:prose-a:text-indigo-300"
           />
         </div>
       </article>
@@ -92,6 +97,10 @@
 </template>
 
 <script setup>
+import { useDark } from "@vueuse/core";
+
+const isDark = useDark();
+
 const route = useRoute();
 const { data: doc } = await useAsyncData(`article-${route.path}`, () => {
   return queryContent(route.path).findOne();
@@ -122,16 +131,20 @@ if (doc.value) {
 }
 </script>
 
-<style scoped>
-:deep(.prose) :not(pre) > code {
+<style>
+.prose :not(pre) > code {
   background-color: #f3f4f6;
   color: #4f46e5;
   padding: 0.125rem 0.375rem;
   border-radius: 0.375rem;
   font-weight: 500;
 }
-:deep(.prose) code::before,
-:deep(.prose) code::after {
+html.dark .prose :not(pre) > code {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: #a5b4fc !important;
+}
+.prose code::before,
+.prose code::after {
   content: none !important;
 }
 </style>
