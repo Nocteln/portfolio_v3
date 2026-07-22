@@ -16,9 +16,9 @@ This room is the last room of a series of introductions to different attack vect
 >
 > Can you gain an initial foothold, escalate your access, and ultimately log in as the administrator?
 
-We don't need to do enumeration since it is a room based on attacking websites. So we just have to go to `http://IP` to see a login form.
+We don't need to do much enumeration since this room is focused on web attacks. So we just have to go to `http://IP` to see a login form.
 
-Trying some basic logins like `admin:admin` didn't seem to work, so I tried to do basic SQL injections but that didn't seem to work either.
+Trying some basic logins like `admin:admin` didn't seem to work, so I tried some basic SQL injections, but those didn't work either.
 
 So let's try a gobuster scan :
 
@@ -67,7 +67,7 @@ Recruitment Team
 May 14 09:32:14 recruit-server postfix/qmgr[1789]: 4F1A2203F: removed
 ```
 
-On the login page, there is also a link to the API FAQ, in which we can see that we can access files using the API with `/file.php?cv=<URL>`. So I tried `http://10.80.167.147/file.php?cv=config.php` but an error was returned saying **"only local files are allowed"**. After a bit of thinking and researching, I found that we could access it using `file://config.php` and BINGO! We have the hr password and with it our first flag!
+On the login page, there is also a link to the API FAQ, in which we can see that we can access files using the API with `/file.php?cv=<URL>`. So I tried `http://10.80.167.147/file.php?cv=config.php` but an error was returned saying **"only local files are allowed"**. After a bit of thinking and research, I found we could access it using `file://config.php` — and BINGO! We have the hr password and with it our first flag!
 
 ```plain
 <?php
@@ -114,7 +114,7 @@ After logging in as hr, we have access to the dashboard.
 
 ![dashboard](/img/writeups/20260722-161156.png)
 
-The first thing I got in mind after seeing it was the search bar. Firstly, I tried to see if it was vulnerable to XSS attacks but it seems not. Second thing I did was testing SQL injection with a basic `'`. And this time I got an error, meaning that this is vulnerable to SQL injections.
+The first thing that came to mind after seeing it was the search bar. First, I tried to see if it was vulnerable to XSS attacks, but it didn't seem to be. And this time I got an error, meaning that this is vulnerable to SQL injections.
 
 ![sql error](/img/writeups/20260722-161436.png)
 
@@ -139,14 +139,14 @@ And we got two tables :
 
 `' UNION SELECT 1,database(),3,group_concat(column_name) FROM information_schema.columns WHERE table_name = "users";#`
 
-We now know that in the table there is a column named username and one password. Let's extract them.
+We now know the table has a column named `username` and one named `password`. Let's extract them.
 
 #### Last injection
 
 ![admin creds](/img/writeups/20260722-162805.png)
 
-With this last injection, we got the admin credentials so all there is left to do is logout from hr account and logging back as admin and we get the last flag!
+With this last injection, we got the admin credentials, so all that's left to do is log out of the hr account, log back in as admin, and grab the last flag!
 
 ## Conclusion
 
-This was a good recap room where I could practice more SQL injections, but I was hoping to practice more of the other concepts we saw in the rooms before too.
+This was a good recap room where I could practice SQL injection more, though I was hoping to practice more of the other concepts covered in previous rooms as well.
